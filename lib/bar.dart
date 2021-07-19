@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:make_graph/main.dart';
 class Bar extends StatelessWidget {
 
-  const Bar({required this.value,required this.index});
+  const Bar({required this.value,required this.index, required this.isPointed});
 
   final double value;
   final int index;
+  final bool isPointed;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: barWidth,
       height: barHeight,
       child: CustomPaint(
-        painter : BarPainter(value, index),
+        painter : BarPainter(value, index, isPointed),
       ),
     );
   }
@@ -20,11 +21,11 @@ class Bar extends StatelessWidget {
 
 
 class BarPainter extends CustomPainter{
-  const BarPainter(this.value, this.index);
+  const BarPainter(this.value, this.index, this.isPointed);
 
   final int index;
   final double value;
-
+  final bool isPointed;
   @override
   void paint(Canvas canvas, Size size) {
     final strokeWidth = 12.0;
@@ -33,7 +34,7 @@ class BarPainter extends CustomPainter{
 
     final paint = Paint()
       ..strokeWidth = strokeWidth
-      ..color = (index == nowIndex) ? Colors.green : Colors.grey
+      ..color = (isPointed) ? Colors.green : Colors.grey
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
@@ -43,6 +44,6 @@ class BarPainter extends CustomPainter{
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     // TODO: implement shouldRepaint
-    return false;
+    return true;
   }
 }

@@ -4,8 +4,8 @@ import 'package:make_graph/main.dart';
 class BarBottom extends StatelessWidget {
 
   final int index;
-
-  BarBottom({required this.index});
+  final bool isPointed;
+  BarBottom({required this.index, required this.isPointed});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class BarBottom extends StatelessWidget {
       height: 40,
       width: barWidth,
       child: CustomPaint(
-        painter: BarBottomTextPainter(index),
+        painter: BarBottomTextPainter(index,isPointed),
       ),
     );
   }
@@ -21,10 +21,10 @@ class BarBottom extends StatelessWidget {
 
 
 class BarBottomTextPainter extends CustomPainter{
-  const BarBottomTextPainter(this.index);
+  const BarBottomTextPainter(this.index, this.isPointed);
 
   final int index;
-
+  final bool isPointed;
   @override
   void paint(Canvas canvas, Size size) {
 
@@ -38,7 +38,7 @@ class BarBottomTextPainter extends CustomPainter{
 
     final textSpan = TextSpan(
       text: index.toString(),
-      style: index == nowIndex ? eqTextStyle : neqTextStyle,
+      style: isPointed ? eqTextStyle : neqTextStyle,
     );
 
     final textPainter = TextPainter(
@@ -57,6 +57,6 @@ class BarBottomTextPainter extends CustomPainter{
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     // TODO: implement shouldRepaint
-    return false;
+    return true;
   }
 }
